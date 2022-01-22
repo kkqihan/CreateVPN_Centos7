@@ -9,9 +9,6 @@ else
     echo -e "账号: ${vpn_account} 密码: ${vpn_passwd}"
 fi
 
-# 切换权限
-su root
-
 # 安装软件
 yum -y install epel-release
 yum -y install firewalld net-tools ppp pptpd
@@ -30,7 +27,6 @@ sed -i 's/#remoteip 192.168.0.234-238,192.168.0.245/remoteip 192.168.0.2-254/' /
 # 添加 pptp 的DNS解析服务器 格式：ms-dns 8.8.8.8 ，ip改为你自己的可以了
 sed -i 's/#ms-dns 10.0.0.1/ms-dns 192.168.0.1/' /etc/ppp/options.pptpd
 sed -i 's/#ms-dns 10.0.0.2/ms-dns 8.8.8.8/' /etc/ppp/options.pptpd
-exit 0
 
 # Firewall 通过防火墙规则
 ens=$(ls /etc/sysconfig/network-scripts/ | grep 'ifcfg-e.*[0-9]' | cut -d- -f2)
